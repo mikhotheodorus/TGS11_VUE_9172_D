@@ -3,17 +3,23 @@ import Router from 'vue-router'
 
 const DashboardLayout = () => import(/*webpackChunkName:"dashboard"*/'../components/dashboardLayout.vue')
 
+const LoginLayout = () =>
+    import ('../components/loginLayout.vue')
+
+const SignupLayout = () =>
+    import ('../components/signupLayout.vue')
+    
 function loadView(view){
     return()=>import(/*webpackChunkName:"view-[request]"*/`../components/dashboardContents/${view}.vue`)
 }
 
+
 const routes = [
     {
-        path:'/',
+        path:'/dashboard',
         component: DashboardLayout,
-        children: [
-            {
-                name: 'userController',
+        children: [{
+                name: 'UserController',
                 path: '/user',
                 component: loadView('userController')
             },
@@ -21,9 +27,18 @@ const routes = [
                 name: 'layananKendaraan',
                 path: '/kendaraan',
                 component: loadView('layananKendaraan')
-            }
-        ]
-    },
+            }]
+        },
+            {
+                name: 'LoginLayout',
+                path: '/',
+                component: LoginLayout,
+            },
+            {
+                name: 'SignupLayout',
+                path: '/',
+                component: SignupLayout,
+            },
 ]
 Vue.use(Router)
 
